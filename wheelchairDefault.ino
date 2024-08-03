@@ -11,31 +11,33 @@ Cytron_SmartDriveDuo smartDriveDuo30(PWM_INDEPENDENT, IN1, IN2, AN1, AN2);
 
 void setup()
 {
-Serial.begin(9600);
+  Serial.begin(9600);
 }
 
 
 void loop()
 {
-xValue=analogRead(joyX);  
-yValue=analogRead(joyY);  //reads x and y from joystick (0,1023)
+  xValue=analogRead(joyX);  
+  yValue=analogRead(joyY);  //reads x and y from joystick (0,1023)
 
-xValue=map(xValue,0,1023,-40,40); //its between -40 and 40 since we want the motors functioning at 40% power for full efficiency
-yValue=map(xValue,0,1023,-40,40);
-hypotenuse= sqrt(square(xValue)+square(yValue)); //when we turn one of the motors will be turning at this speed whereas the other will turn at a lower defualt speed
+  xValue=map(xValue,0,1023,-40,40); //its between -40 and 40 since we want the motors functioning at 40% power for full efficiency
+  yValue=map(xValue,0,1023,-40,40);
+  hypotenuse= sqrt(square(xValue)+square(yValue)); //when we turn one of the motors will be turning at this speed whereas the other will turn at a lower defualt speed
 
-if (yValue>=0){
-  if (0<=xValue){
-    smartDriveDuo30.control(hypotenuse,yValue); //if we want to turn right, the left motor's speed will be the hypotonuse (higher)
+  if (yValue>=0){
+    if (0<=xValue){
+      smartDriveDuo30.control(hypotenuse,yValue); //if we want to turn right, the left motor's speed will be the hypotonuse (higher)
+      }
+    else if (xValue<0){
+      smartDriveDuo30.control(yValue,hypotenuse); //if we want to turn left, the right motor's speed will be the hypotonuse (higher)
+      }
     }
-  else if (xValue<0){
-    smartDriveDuo30.control(yValue,hypotenuse); //if we want to turn left, the right motor's speed will be the hypotonuse (higher)
+  else{
+    if (0<=xValue){
+      smartDriveDuo30.control(-1*hypotenuse,yValue); //if we are moving backwards and tilt the joystick left, the right motor's speed will be the hypotonuse (higher)
+      }
+    else if (xValue<0){
+      smartDriveDuo30.control(yValue,-1*hypotenuse); //if we are moving backwards and tilt the joystick right, the left motor's speed will be the hypotonuse (higher)
+      }
     }
-  }
-else{
-  if (0<=xValue){
-    smartDriveDuo30.control(-1*hypotenuse,yValue); //if we are moving backwards and tilt the joystick left, the right motor's speed will be the hypotonuse (higher)
-    }
-  else if (xValue<0){
-    smartDriveDuo30.control(yValue,-1*hypotenuse); //if we are moving backwards and tilt the joystick right, the left motor's speed will be the hypotonuse (higher)
-    }
+}
