@@ -4,7 +4,7 @@ wheelchairDefault.ino:
   For arduino uno, controls wheelchair using PWM signals and an analog joystick
 
   
-Folder:
+Folder (removed while i edit):
   For D1 mini and Arduino Uno
   Contains code for controlling the wheelchair using a D1 Mini.
   D1 Mini communicates with an Arduino via a web server and allows control of the motors using a phone. 
