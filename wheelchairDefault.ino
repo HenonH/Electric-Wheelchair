@@ -21,7 +21,7 @@ void loop()
   yValue=analogRead(joyY);  //reads x and y from joystick (0,1023)
 
   xValue=map(xValue,0,1023,-40,40); //its between -40 and 40 since we want the motors functioning at 40% power for full efficiency
-  yValue=map(xValue,0,1023,-40,40);
+  yValue=map(yValue,0,1023,-40,40);
   hypotenuse= sqrt(square(xValue)+square(yValue)); //when we turn one of the motors will be turning at this speed whereas the other will turn at a lower defualt speed
 
   if (yValue>=0){
